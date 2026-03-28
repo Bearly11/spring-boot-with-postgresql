@@ -8,11 +8,12 @@ import com.springproject.store.exceptions.NotFoundException;
 import com.springproject.store.mappers.MapperProduct;
 import com.springproject.store.models.Product;
 import com.springproject.store.repositories.ProductRepository;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 
-import java.awt.print.Pageable;
 import java.util.List;
 
 @Service
@@ -87,14 +88,20 @@ public class ProductService {
     }
 
 
-    public List<ProductResponseDto> getPaginatedProduct(int page,int size){
-        var pageAble= PageRequest.of(page,size);
-        var products= _productRepository.findAll(pageAble).getContent()
-                .stream()
-                .map(_mapperProduct::toDto)
-                .toList();
-        return products;
+    public Page<ProductResponseDto> getPaginationProducts(Pageable pageable){
+        return _productRepository.findAll(pageable)
+                .map(_mapperProduct::toDto);
     }
+
+    // pagination manual
+//    public List<ProductResponseDto> getPaginationProductManual(int page, int size){
+//        var pageAble = PageRequest.of(page ,size);
+//        var products = _productRepository.findAll(pageAble).getContent()
+//                .stream()
+//                .map(_mapperProduct::toDto)
+//                .toList();
+//        return products;
+//    }
 
 
 

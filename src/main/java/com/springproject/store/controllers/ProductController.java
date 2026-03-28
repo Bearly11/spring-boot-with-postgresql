@@ -5,6 +5,8 @@ import com.springproject.store.dtos.ProductRequestDto;
 import com.springproject.store.dtos.ProductResponseDto;
 import com.springproject.store.services.ProductService;
 import jakarta.validation.Valid;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -57,8 +59,7 @@ public class ProductController {
     }
 
     @GetMapping("/pagination")
-    public ResponseEntity<List<ProductResponseDto>> getPaginatedProduct(@RequestParam(defaultValue = "0") int page
-    ,@RequestParam(defaultValue = "5") int size){
-        return ResponseEntity.ok(_productService.getPaginatedProduct(page,size));
+    public ResponseEntity<Page<ProductResponseDto>> getProducts(Pageable pageable){
+        return ResponseEntity.ok(_productService.getPaginationProducts(pageable));
     }
 }
