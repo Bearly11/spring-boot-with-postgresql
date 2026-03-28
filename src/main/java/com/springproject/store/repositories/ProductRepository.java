@@ -1,5 +1,6 @@
 package com.springproject.store.repositories;
 
+import com.springproject.store.dtos.ProductResponseDto;
 import com.springproject.store.models.Product;
 import org.springframework.data.jpa.repository.JpaRepository;
 
